@@ -1,30 +1,38 @@
-import React from 'react';
-// import { Button } from '@progress/kendo-react-buttons';
-import kendoka from './kendoka.svg';
-import './App.css';
+import React, { useState } from "react"
 
 function App() {
-  const handleClick = React.useCallback(() => {
-    window.open('https://www.telerik.com/kendo-react-ui/components/', '_blank');
-  }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={kendoka} className="App-logo" alt="kendoka" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        {/*<Button*/}
-        {/*  themeColor={'primary'}*/}
-        {/*  size={"large"}*/}
-        {/*  onClick={handleClick}*/}
-        {/*>*/}
-        {/*  Learn KendoReact*/}
-        {/*</Button>*/}
-      </header>
-    </div>
-  );
+    <>
+      <TextInput>
+        {(value) => (
+          <>
+            <Comp1 val={value}/>
+            <Comp2 val={value}/>
+          </>
+        )}
+      </TextInput>
+    </>
+  )
 }
 
-export default App;
+function TextInput(props) {
+  const [value, setValue] = useState("")
+
+  return (<>
+      Zadaj hodnotu:
+      <input type="text" value={value} onChange={(e) => {
+        setValue(e.target.value)
+      }}/>
+      {props.children(value)}
+    </>
+
+  )
+}
+
+const Comp1 = (props) =>
+  <p>P1: {props.val}</p>
+
+const Comp2 = ({ val }) =>
+  <p>P2: {val}</p>
+
+export default App
